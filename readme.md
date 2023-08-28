@@ -34,24 +34,11 @@ END
 ## Examples
 1. For a quick query: 
 
-```
-chat "What's the rsync syntax to mirror directories?"
-```
+<img src="images/single_line_query.png" width="80%">
 
 2. For a multiline query:
 
-```
-chat
-Debug this bash script.
-!/bin/bash
-file=$1
-base=$(basename "$file")
-ext="${base##*.}"
-fname="${base%.*}"
-timestamp=$(date +%Y%m%d%H%M%S)
-cp file ${fname}_$timestamp.$ext
-END
-```
+<img src="images/multi_line_query.png" width="80%">
 
 ## Notes
 - 8-bit ANSI text decorations are used to decorate the response. 16-bit colors may not work in all environments. Tweak the prompt to change color decorations. It's finicky. 
