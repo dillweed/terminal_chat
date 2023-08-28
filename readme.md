@@ -56,4 +56,5 @@ END
 ## Notes
 - 8-bit ANSI text decorations are used to decorate the response. 16-bit colors may not work in all environments. Tweak the prompt to change color decorations. It's finicky. 
 - Customize the system message as needed.
+- TODO: Include support for light mode. (eww.) This version only works with dark themes. 
 
