@@ -34,11 +34,11 @@ END
 ## Examples
 1. For a quick query: 
 
-<img src="images/single_line_query.png" width="80%">
+<img src="images/single_line_query.png" width="100%">
 
 2. For a multiline query:
 
-<img src="images/multi_line_query.png" width="80%">
+<img src="images/multi_line_query.png" width="100%">
 
 ## Notes
 - 8-bit ANSI text decorations are used to decorate the response. 16-bit colors may not work in all environments. Tweak the prompt to change color decorations. It's finicky. 
