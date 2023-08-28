@@ -81,11 +81,15 @@ else
     echo "Enter your prompt. Type 'END' on a new line when finished:"
   fi
 
+  # This code block reads user input line by line until it encounters the string "END".
+  # It then concatenates all the lines of user input into a single string variable called "user_content".
+  # The resulting string can be used for further processing or analysis.
   user_content=""
   while IFS= read -r line; do
-    [[ "$line" == "END" ]] && break
+    [[ "${line^^}" == "END" ]] && break
     user_content+="$line\n"
   done
+  
   # Remove trailing newline character
   user_content=${user_content%\\n}
 fi
