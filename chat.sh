@@ -86,7 +86,7 @@ else
   # The resulting string can be used for further processing or analysis.
   user_content=""
   while IFS= read -r line; do
-    [[ "${line^^}" == "END" ]] && break
+    [[ "$(echo "$line" | awk '{print toupper($0)}')" == "END" ]] && break
     user_content+="$line\n"
   done
   
