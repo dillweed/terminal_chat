@@ -11,7 +11,8 @@
 # 5. Install jq for json parsing. 'brew install jq' More info: https://formulae.brew.sh/formula/jq 
 # 
 # Usage Description:
-# This script is used to submit requests to OpenAI GPT-4 from Mac's terminal. It has no memory, so each interaction will be independent. It can be prompted in two ways:
+# This script is used to submit requests to OpenAI GPT-4 from the zsh terminal. It has no memory, so each interaction will be independent. 
+# It can be prompted in two ways:
 #
 # 1. chat "Type your request here in single or double quotes." (press return)
 #
@@ -93,8 +94,14 @@ fi
 user_content=$(echo -n "$user_content" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\n/\\n/g')
 
 # Construct messages JSON
+# messages="[
+  # {\"role\": \"system\", \"content\": \"You are an expert teacher for Mac terminal, Windows command prompt and PowerShell. After assisting with my request, indicate the preferred source of information on the topic whether it be a man page, website, or other documentation. Your response will display in the terminal, so don't use markdown or text blocks wrapped in triple backticks. Instead apply Xterm 8-bit ANSI escape codes to color text using the syntax \\\033[38;5;f;48;5;bm. (Where f and b are placeholders for foreground and background color codes.) Wrap text in color codes using the following guidelines for this set of dark mode palettes. There are two independent palettes that should be kept separated with multiple line breaks. The primary interface color palette is as follows. (normal text: 252, defined terms: 231, background: reset) The code block palette should use code syntax highlighting as follows. (normal text: 231, background: 0, comments: 244, statements: 31, strings: 29, numbers: 162, native function names: 172, user-defined function names: 160) Additionally, you may add an extra ;1 before the m to make terms bold, ;4 for underline, ;3 for italics, or ;0 for normal text. For example, \\\033[38;5;252;48;5;237m will display normal text on the primary interface background. Limit the length of every line of output to be under 80 characters, and then break the line.\"},
+  # {\"role\": \"user\", \"content\": \"$user_content\"}
+  # ]"
+
+# Construct messages JSON
 messages="[
-  {\"role\": \"system\", \"content\": \"You are an expert teacher for Mac terminal, Windows command prompt and PowerShell. After assisting with my request, indicate the preferred source of information on the topic whether it be a man page, website, or other documentation. Your response will display in the terminal, so don't use markdown or text blocks wrapped in triple backticks. Instead apply Xterm 8-bit ANSI escape codes to color text using the syntax \\\033[38;5;f;48;5;bm. (Where f and b are placeholders for foreground and background color codes.) Wrap text in color codes using the following guidelines for this set of dark mode palettes. There are two independent palettes that should be kept separated with multiple line breaks. The primary interface color palette is as follows. (normal text: 252, defined terms: 231, background: reset) The code block palette should use code syntax highlighting as follows. (normal text: 231, background: 0, comments: 244, statements: 31, strings: 29, numbers: 162, native function names: 172, user-defined function names: 160) Additionally, you may add an extra ;1 before the m to make terms bold, ;4 for underline, ;3 for italics, or ;0 for normal text. For example, \\\033[38;5;252;48;5;237m will display normal text on the primary interface background. Limit the length of every line of output to be under 80 characters, and then break the line.\"},
+  {\"role\": \"system\", \"content\": \"You are an expert teacher for Mac terminal, Windows command prompt and PowerShell. After assisting with my request, indicate the preferred source of information on the topic whether it be a man page, website, or other documentation. Your response will display in the terminal, so don't use markdown or text blocks wrapped in triple backticks. Instead, choose colors from the following dark mode 8-bit color palette as appropriate for terminal text. Choose colors other than white for hyperlinks, commands, variables, titles, etc. Use a black background for all code and terminal examples. Use 256 color syntax like this. \\\033[38;5;F;48;5;Bm. (Where F and B are placeholders for foreground and background color codes.) Palette codes: Default text color code (muted white) is 252. Bold text is 231 (bright white with added bold code ';1' before the closing 'm'). Code block background color is 0 (black). Comments color is 244 (bright gray). Text color options: Blue is 31. Green is 29. Pink is 162. Orange is 172. Additionally, you may add an extra ;1 before the m for bold, ;4 for underline, or ;0 for normal text. For example, \\\033[38;5;252;48;5;0m will display muted white text color on a black background (code block). \\\033[38;5;172;1m will display bold orange text on the default background.\"},
   {\"role\": \"user\", \"content\": \"$user_content\"}
 ]"
 
