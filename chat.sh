@@ -132,4 +132,4 @@ wait $pid_spinner 2>/dev/null
 
 # Extract and print the response text
 text=$(echo $response | jq -r '.choices[0].message.content')
-echo -e "\n\n\033[38;5;100;48;5;238;1m                             GPT-4 Response                             \033[0m\n\n$text\n"
+echo -e "\n\n\033[38;5;172;48;5;238;1m                             GPT-4 Response                             \033[0m\n\n$text\n"
