@@ -79,6 +79,7 @@ else
     echo "2. Enter the prompt in quotes as an argument while executing the script (./chat.sh \"Your Prompt Here\")."
     echo \ 
     echo "Enter your prompt. Type 'END' on a new line when finished:"
+    echo \ 
   fi
 
   # This code block reads user input line by line until it encounters the string "END".
@@ -107,6 +108,7 @@ messages="[
 loading_spinner() {
   local delay=0.1
   local spinstr='|/-\'
+  printf "\n"
   while :; do
     local temp=${spinstr#?}
     printf "Waiting for API response %c" "$spinstr"
