@@ -120,6 +120,9 @@ loading_spinner() {
 loading_spinner &
 pid_spinner=$!
 
+# Record the start time
+start_time=$(date +%s)
+
 # Send request to OpenAI API
 response=$(curl -s https://api.openai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -130,10 +133,16 @@ response=$(curl -s https://api.openai.com/v1/chat/completions \
     \"messages\": $messages
   }")
 
+# Record the end time
+end_time=$(date +%s)
+
 # Kill the loading spinner
 kill $pid_spinner
 wait $pid_spinner 2>/dev/null
 
+# Calculate elapsed_time
+elapsed_time=$(echo "scale=3; $end_time - $start_time" | bc)
+
 # Extract and print the response text
 text=$(echo $response | jq -r '.choices[0].message.content')
-echo -e "\n\n\033[38;5;172;48;5;238;1m                             GPT-4 Response                             \033[0m\n\n$text\n"
+echo -e "\n\n\033[38;5;172;48;5;238;1m                             GPT-4 Response (Time: ${elapsed_time}s)                             \033[0m\n\n$text\n"
