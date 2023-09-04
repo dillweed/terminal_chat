@@ -25,7 +25,7 @@ chat "Your query here."
 ```
 chat
 Your query here.
-Additional lines if needed.
+Add as many lines as needed.
 END
 ```
 - **Pros**: Supports long queries and line breaks. Allows quotes inside the prompt.
