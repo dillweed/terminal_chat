@@ -143,7 +143,7 @@ kill $pid_spinner
 wait $pid_spinner 2>/dev/null
 
 # Calculate elapsed_time
-elapsed_time=$(echo "scale=3; $end_time - $start_time" | bc)
+elapsed_time=$((end_time - start_time))
 
 # Extract and print the response text
 text=$(echo $response | jq -r '.choices[0].message.content')
