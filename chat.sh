@@ -11,7 +11,7 @@
 # 5. Install jq for json parsing. 'brew install jq' More info: https://formulae.brew.sh/formula/jq 
 # 
 # Usage Description:
-# This script is used to submit requests to OpenAI GPT-4 from the zsh terminal. It has no memory, so each interaction will be independent. 
+# This script is used to submit requests to OpenAI GPT from the zsh terminal. It has no memory, so each interaction will be independent. 
 # It can be prompted in two ways:
 #
 # 1. chat "Type your request here in single or double quotes." (press return)
@@ -130,7 +130,7 @@ response=$(curl -s https://api.openai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -d "{
-    \"model\": \"gpt-4\",
+    \"model\": \"gpt-4o\",
     \"temperature\": 0,
     \"messages\": $messages
   }")
@@ -147,4 +147,4 @@ elapsed_time=$((end_time - start_time))
 
 # Extract and print the response text
 text=$(echo $response | jq -r '.choices[0].message.content')
-echo -e "\n\n\033[38;5;172;48;5;238;1m                             GPT-4 Response (Time: ${elapsed_time}s)                             \033[0m\n\n$text\n"
+echo -e "\n\n\033[38;5;172;48;5;238;1m                             GPT Response (Time: ${elapsed_time}s)                             \033[0m\n\n$text\n"

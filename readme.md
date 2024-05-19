@@ -1,8 +1,8 @@
 
-# Query OpenAI's GPT-4 from the terminal
+# Query OpenAI's GPT from the terminal
 
 ## Introduction
-This script allows you to interact with OpenAI's GPT-4 model directly from your zsh terminal. It's a quick way to get help on command syntax or any query without leaving the terminal. The script has no memory so each interaction is independent.
+This script allows you to interact with OpenAI's GPT model directly from your zsh terminal. It's a quick way to get help on command syntax or any query without leaving the terminal. The script has no memory so each interaction is independent.
 
 ## Setup Instructions
 1. Copy this script to a directory in your `$PATH`. For example, `cp chat.sh /usr/local/bin/`.
