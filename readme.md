@@ -30,7 +30,6 @@ Tips
 
 ## Configuration
 - `OPENAI_CHAT_MODEL` (default `gpt-5.1-codex-mini`)
-- `OPENAI_CHAT_VERBOSITY` (`low|medium|high`, default `medium`)
 - System message is defined near the bottom of the script; edit to taste.
 
 ## What it prints/keeps
@@ -44,9 +43,15 @@ Tips
 - Nothing printed? Ensure the model name is valid and network egress to `api.openai.com` is allowed.
 
 ## Examples
-- `chat "What's the rsync syntax to mirror directories on a remote server and log differences without making changes?"`
-- `chat` → Return → type `Debug this bash loop that never exits` → Return
-- `cat script.sh | chat`
+- Inline: `chat "What's the rsync syntax to mirror directories on a remote server and log differences without making changes?"`
+- Interactive single line: `chat` → at the prompt type `Give me a one-line ffmpeg to downsample audio to 64k mono` → Return
+- Interactive multiline: `chat` → press Return on the blank prompt → paste or type multiple lines, e.g.:
+  ```
+  I need a Bash loop that retries curl up to 5 times with exponential backoff.
+  Show me the loop and explain the backoff math.
+  END
+  ```
+- Piped file with instruction: `cat script.sh | chat "Explain what this script does and point out any obvious bugs."`
 
 ## Changelog (recent)
 - Switched to streaming Responses API; removed spinner.
