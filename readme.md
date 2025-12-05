@@ -1,47 +1,54 @@
+# Terminal Chat (OpenAI from your shell)
 
-# Query OpenAI's GPT from the terminal
+Tiny bash script to send one-off prompts to OpenAI and stream the reply directly in the terminal. No conversation history; every call is stateless.
 
-## Introduction
-This script allows you to interact with OpenAI's GPT model directly from your zsh terminal. It's a quick way to get help on command syntax or any query without leaving the terminal. The script has no memory so each interaction is independent.
+## Requirements
+- Bash, curl
+- `jq`
+- OpenAI API key set as `OPENAI_API_KEY`
 
-## Setup Instructions
-1. Copy this script to a directory in your `$PATH`. For example, `cp chat.sh /usr/local/bin/`.
-2. Make it executable: `chmod +x /usr/local/bin/chat.sh`.
-3. Create an alias in your bash config such as `~/.zshrc`: `alias chat=/usr/local/bin/chat.sh`.
-4. Add your OpenAI API key as an environment variable. For example, add `export OPENAI_API_KEY=<your-api-key>` in `~/.zshrc`. [API Key Instructions](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key)
-5. Install jq for JSON parsing: `brew install jq`. [Install instructions](https://formulae.brew.sh/formula/jq)
+## Install
+1) Copy `chat.sh` somewhere on your `PATH` (suggested: `$HOME/bin`).
+2) Make it executable: `chmod +x $HOME/bin/chat.sh`.
+3) (zsh) Add an alias that disables globbing so `*` and `?` pass through: `alias chat='noglob "$HOME/bin/chat.sh"'`.
+
+Update later with a single command (no git checkout needed):
+```sh
+curl -fsSLo "$HOME/bin/chat.sh" https://raw.githubusercontent.com/dillweed/terminal_chat/main/chat.sh && chmod +x "$HOME/bin/chat.sh"
+```
 
 ## Usage
-You can prompt the script in two ways:
+- **Inline**: `chat "Prompt here"`
+- **Interactive single line**: run `chat`, type at `>`, press Return.
+- **Multiline / piped**:
+  - Run `chat`, press Return on the blank prompt, type text, finish with `END` on its own line.
+  - Or pipe/redirect: `cat notes.txt | chat`
 
-### Method 1: Inline Prompt
-```
-chat "Your query here."
-```
-- **Pros**: Quick for simple queries. Allows command chaining with pipes `|`.
-- **Cons**: Cannot include the same type of quotes both inside and outside the query. Use a combination of double and single quotes if necessary. 
+Tips
+- If you skip the alias, wrap prompts that contain shell metacharacters (`* ? [ ]`) in quotes.
+- When piping, pass zero CLI arguments; stdin is ignored if args are present.
 
-### Method 2: Multiline Prompt
-```
-chat
-Your query here.
-Add as many lines as needed.
-END
-```
-- **Pros**: Supports long queries and line breaks. Allows quotes inside the prompt.
-- **Cons**: Requires manual typing of `END` to finish input.
+## Configuration
+- `OPENAI_CHAT_MODEL` (default `gpt-5.1-codex-mini`)
+- `OPENAI_CHAT_VERBOSITY` (`low|medium|high`, default `medium`)
+- System message is defined near the bottom of the script; edit to taste.
+
+## What it prints/keeps
+- Streams the model output as it arrives.
+- Saves the last response to `/tmp/chat_last_output.txt`.
+- On API errors, writes the raw payload to `/tmp/chat_error.json`.
+
+## Troubleshooting
+- "OPENAI_API_KEY is not set" → export it in your shell rc file.
+- "jq is not installed" → `brew install jq` (macOS) or `apt-get install jq`.
+- Nothing printed? Ensure the model name is valid and network egress to `api.openai.com` is allowed.
 
 ## Examples
-1. For a quick query: 
+- `chat "What's the rsync syntax to mirror directories on a remote server and log differences without making changes?"`
+- `chat` → Return → type `Debug this bash loop that never exits` → Return
+- `cat script.sh | chat`
 
-<img src="images/single_line_query.png" width="100%">
-
-2. For a multiline query:
-
-<img src="images/multi_line_query.png" width="100%">
-
-## Notes
-- 8-bit ANSI text decorations are used to decorate the response. 16-bit colors may not work in all environments. Tweak the prompt to change color decorations. It's finicky. 
-- Customize the system message as needed.
-- TODO: Include support for light mode. (eww.) This version only works with dark themes. 
-
+## Changelog (recent)
+- Switched to streaming Responses API; removed spinner.
+- Cleaned prompts/alias instructions; no stray backslash lines.
+- Stopped rewriting model output (no automatic bullet insertion).
