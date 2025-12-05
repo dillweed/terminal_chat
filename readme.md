@@ -26,7 +26,7 @@ curl -fsSLo "$HOME/bin/chat.sh" https://raw.githubusercontent.com/dillweed/termi
 
 Tips
 - If you skip the alias, wrap prompts that contain shell metacharacters (`* ? [ ]`) in quotes.
-- When piping, pass zero CLI arguments; stdin is ignored if args are present.
+- When piping, pass zero CLI arguments; stdin is ignored if args are present. To include an instruction, put it as the first line of stdin (see examples).
 
 ## Configuration
 - `OPENAI_CHAT_MODEL` (default `gpt-5.1-codex-mini`)
@@ -51,7 +51,10 @@ Tips
   Show me the loop and explain the backoff math.
   END
   ```
-- Piped file with instruction: `cat script.sh | chat "Explain what this script does and point out any obvious bugs."`
+- Piped file with instruction (stdin only):
+  ```
+  { echo "Explain what this script does and point out any obvious bugs."; cat script.sh; } | chat
+  ```
 
 ## Changelog (recent)
 - Switched to streaming Responses API; removed spinner.
