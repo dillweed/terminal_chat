@@ -8,13 +8,15 @@ Tiny bash script to send one-off prompts to OpenAI and stream the reply directly
 - OpenAI API key set as `OPENAI_API_KEY`
 
 ## Install
-1) Copy `chat.sh` somewhere on your `PATH` (suggested: `$HOME/bin`).
-2) Make it executable: `chmod +x $HOME/bin/chat.sh`.
-3) (zsh) Add an alias that disables globbing so `*` and `?` pass through: `alias chat='noglob "$HOME/bin/chat.sh"'`.
+1) Create a user bin dir and copy the script there:
+   `mkdir -p "$HOME/.local/bin" && cp chat.sh "$HOME/.local/bin/chat.sh"`.
+2) Make it executable: `chmod +x "$HOME/.local/bin/chat.sh"`.
+3) Ensure your shell can find it (zsh): add `export PATH="$HOME/.local/bin:$PATH"` to `~/.zprofile`.
+4) (zsh) Add an alias that disables globbing so `*` and `?` pass through: `alias chat='noglob "$HOME/.local/bin/chat.sh"'`.
 
 Update later with a single command (no git checkout needed):
 ```sh
-curl -fsSLo "$HOME/bin/chat.sh" https://raw.githubusercontent.com/dillweed/terminal_chat/main/chat.sh && chmod +x "$HOME/bin/chat.sh"
+mkdir -p "$HOME/.local/bin" && curl -fsSLo "$HOME/.local/bin/chat.sh" https://raw.githubusercontent.com/dillweed/terminal_chat/main/chat.sh && chmod +x "$HOME/.local/bin/chat.sh"
 ```
 
 ## Usage
