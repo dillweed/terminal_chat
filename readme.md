@@ -31,7 +31,7 @@ Tips
 - When piping, pass zero CLI arguments; stdin is ignored if args are present. To include an instruction, put it as the first line of stdin (see examples).
 
 ## Configuration
-- `OPENAI_CHAT_MODEL` (default `gpt-5.1-codex-mini`)
+- `OPENAI_CHAT_MODEL` (default `gpt-5-codex`)
 - System message is defined near the bottom of the script; edit to taste.
 
 ## What it prints/keeps

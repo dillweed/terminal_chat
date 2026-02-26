@@ -119,7 +119,7 @@ input_payload="[
 ]"
 
 # Allow overriding the default model via OPENAI_CHAT_MODEL env var
-MODEL="${OPENAI_CHAT_MODEL:-gpt-5.1-codex-mini}"
+MODEL="${OPENAI_CHAT_MODEL:-gpt-5-codex}"
 
 # Allow overriding verbosity (low, medium, high) via OPENAI_CHAT_VERBOSITY
 TEXT_VERBOSITY="${OPENAI_CHAT_VERBOSITY:-medium}"
